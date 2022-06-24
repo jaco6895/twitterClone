@@ -1,25 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+// import firebase from "firebase/compat/app";
+// import "firebase/compat/auth";
+// import "firebase/compat/firestore";
+// import "firebase/compat/storage";
+import myBase, {authService} from "./myBase";
+import AppRouter from "./Router";
+import {useEffect, useState} from "react";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	const [init,setInit] = useState(false);
+	const [isLoggedIn, setIsLoggedIn] = useState(false);
+	useEffect(()=>{
+		authService.onAuthStateChanged((user)=>{
+			user ? setIsLoggedIn(true) : setIsLoggedIn(false);
+			setInit(true);
+			console.log(user);
+		});
+	},[init]);
+	return (
+		<div>
+			{ init ? <AppRouter isLoggedIn={isLoggedIn}/> : "initializing" }
+			<footer>&copy; Twitter Clone {new Date().getFullYear()}</footer>
+		</div>
+	);
 }
 
 export default App;
