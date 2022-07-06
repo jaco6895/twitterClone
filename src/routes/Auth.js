@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
-import {authService} from "../myBase";
+import { authService } from "../myBase";
+import { GoogleAuthProvider, EmailAuthProvider, signInWithPopup } from 'firebase/auth';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 
 const Auth = ()=> {
@@ -38,20 +39,34 @@ const Auth = ()=> {
 	const onClickHandle = () =>{
 		setSubmit(true);
 	}
-	// useEffect(()=>{
-	//
-	// },[submit]);
+	const toggleAccount = () => {
+
+	}
+
+	const onSocialClick = (e) =>{
+		const target = e.target.name;
+		let provider;
+		if (target === "google"){
+			provider = new GoogleAuthProvider();
+			signInWithPopup(authService,provider);
+		}else if(target === "email"){
+			// provider = new EmailAuthProvider();
+			// signInWithEmailLink(authService,provider)
+			//
+		}
+
+	}
 
 	return (
-		<div>
+		<div className={"wrapper"}>
 			<form onSubmit={onSubmit}>
 				<input name={"email"} type="email" placeholder={'email'} value={email} required onChange={onChangeHandle}/>
 				<input name={"password"} type="password" placeholder={'password'} value={password} required onChange={onChangeHandle}/>
 				<input type="submit" value={newAccount ? "Create Account" : "Login"}/>
 			</form>
 			<div>
-				<button>Continue width Google</button>
-				<button>Continue width Email</button>
+				<button onClick={onSocialClick} name={"google"}>Continue width Google</button>
+				<button onClick={onSocialClick} name={"email"}>Continue width Email</button>
 			</div>
 		</div>
 

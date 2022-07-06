@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { getAuth } from "firebase/auth";
 //import { getAnalytics } from "firebase/analytics";
 
 const firebaseConfig = {
@@ -14,6 +14,14 @@ const firebaseConfig = {
 
 // Initialize Firebase
 export default initializeApp(firebaseConfig);
+
+// Get a list of cities from your database
+// async function getCities(db) {
+// 	const citiesCol = collection(db, 'cities');
+// 	const citySnapshot = await getDocs(citiesCol);
+// 	const cityList = citySnapshot.docs.map(doc => doc.data());
+// 	return cityList;
+// }
 
 export const authService = getAuth();
 // const analytics = getAnalytics(app);
