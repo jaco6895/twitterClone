@@ -1,5 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
 //import { getAnalytics } from "firebase/analytics";
 
 const firebaseConfig = {
@@ -13,7 +14,8 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-export default initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig);
+export default app;
 
 // Get a list of cities from your database
 // async function getCities(db) {
@@ -22,6 +24,7 @@ export default initializeApp(firebaseConfig);
 // 	const cityList = citySnapshot.docs.map(doc => doc.data());
 // 	return cityList;
 // }
-
+// Initialize Cloud Firestore and get a reference to the service
+export const db = getFirestore(app);
 export const authService = getAuth();
 // const analytics = getAnalytics(app);
